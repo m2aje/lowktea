@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubbles with Hover Text</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            flex-direction: column;
+            font-family: 'Montserrat', sans-serif; /* Added font */
+        }
+
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Header Styling */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(85, 107, 47, 0.8);
+            padding: 10px 20px;
+            position: fixed;
+            top: 20px;
+            width: 90%;
+            height: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+
+        .logo {
+            height: 60px;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-icons img {
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .nav-icons img:hover {
+            transform: scale(1.2);
+        }
+
+        /* Bubble Styling */
+        .bubble {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), inset 0 4px 10px rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .bubble:hover {
+            transform: scale(2);
+        }
+
+        .top-left { top: -125px; left: -125px; background-image: url('green.jpg'); }
+        .top-right { top: -125px; right: -125px; background-image: url('brown.jpg'); }
+        .bottom-left { bottom: -125px; left: -125px; background-image: url('pink.jpg'); }
+        .bottom-right { bottom: -125px; right: -125px; background-image: url('winter.jpg'); }
+
+        /* Center Image Effect */
+        .center-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+        }
+
+        .center-image {
+            width: 300px;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            z-index: 1;
+        }
+
+        .center-image.pop { transform: scale(1.2); }
+
+        /* Hover Text */
+        .hover-text {
+            font-size: 24px;
+            color: rgb(59, 50, 33);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            font-weight: bold;
+            transition: opacity 0.3s ease-in-out;
+            margin-top: 10px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif; /* Applied font */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Video Background -->
+    <video class="video-background" autoplay loop muted>
+        <source src="site bg.mp4" type="video/mp4">
+    </video>
+
+    <!-- Header with Icons -->
+    <header class="header">
+        <a href="https://mjardenas.my.canva.site/lowktea" class="nav-icon"><img src="home-icon.png" alt="Home"></a>
+        <a href="documents.html" class="nav-icon"><img src="document-icon.png" alt="Documents"></a>
+        <img src="lowk tea.png" alt="Lowk Tea Logo" class="logo">
+        <a href="https://mjardenas.my.canva.site/lowktea" class="nav-icon"><img src="question-icon.png" alt="Help"></a>
+        <a href="https://mjardenas.my.canva.site/lowktea" class="nav-icon"><img src="user-icon.png" alt="Profile"></a>
+    </header>
+
+    <!-- Center Image and Text Container -->
+    <div class="center-container">
+        <img id="centerImage" class="center-image" src="boba pearl.png" alt="Center Image">
+        <div id="hoverText" class="hover-text">Choose from the corners!</div>
+    </div>
+
+    <!-- Bubbles -->
+    <a href="https://mjardenas.my.canva.site/matcha" class="bubble top-left" onmouseover="changeImage('matcha.png', 'Cool, An Ad! But Wait, It Doesnt Add Up!: Trickery of Fake Ads')" onmouseout="resetImage()"></a>
+    <a href="https://mjardenas.my.canva.site/brown-sugar" class="bubble top-right" onmouseover="changeImage('brown sugar.png', 'Weird Internet')" onmouseout="resetImage()"></a>
+    <a href="https://mjardenas.my.canva.site/strawberry" class="bubble bottom-left" onmouseover="changeImage('strawberry.png', 'The Dangers of Game Piracy')" onmouseout="resetImage()"></a>
+    <a href="https://mjardenas.my.canva.site/wintermelon" class="bubble bottom-right" onmouseover="changeImage('winter melon.png', 'The Dangers of Clickbait Headlines & Sensationalism')" onmouseout="resetImage()"></a>
+
+    <script>
+        function changeImage(imageSrc, text) {
+            let centerImage = document.getElementById("centerImage");
+            let hoverText = document.getElementById("hoverText");
+
+            centerImage.src = imageSrc;
+            centerImage.classList.add("pop");
+            hoverText.textContent = text;
+        }
+
+        function resetImage() {
+            let centerImage = document.getElementById("centerImage");
+            let hoverText = document.getElementById("hoverText");
+
+            centerImage.src = "boba pearl.png";
+            centerImage.classList.remove("pop");
+            hoverText.textContent = "Choose from the corners!";
+        }
+    </script>
+
+</body>
+</html>
